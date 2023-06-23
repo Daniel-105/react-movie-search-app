@@ -7,6 +7,7 @@ import AddFavourites from "./Components/AddFavourites";
 
 function App() {
   const [movies, setMovies] = useState([]);
+  const [favourites, setFavourites] = useState([]);
   const [seachValue, setSearchValue] = useState("");
 
   // function to make te request to the api
@@ -27,6 +28,12 @@ function App() {
     getMovieRequest(seachValue);
   }, [seachValue]);
 
+  // function that adds the selected movie to the favourites MovieList component
+  const addFavouriteMovie = (movie) => {
+    const newFavouriteList = [...favourites, movie];
+    setFavourites(newFavouriteList);
+  };
+
   return (
     <div>
       <div className="header">
@@ -34,7 +41,21 @@ function App() {
         <SearchBox seachValue={seachValue} setSearchValue={setSearchValue} />
       </div>
       <div>
-        <MovieList movies={movies} favouriteComponent={AddFavourites} />
+        <MovieList
+          movies={movies}
+          handleFavouritesClick={addFavouriteMovie}
+          favouriteComponent={AddFavourites}
+        />
+      </div>
+      <div className="header">
+        <MovieListHeading heading="Favourites" />
+      </div>
+      <div>
+        <MovieList
+          movies={favourites}
+          handleFavouritesClick={addFavouriteMovie}
+          favouriteComponent={AddFavourites}
+        />
       </div>
     </div>
   );

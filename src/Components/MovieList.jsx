@@ -22,7 +22,10 @@ const MovieList = (props) => {
               alt="movie image"
             />
           </Card>
-          <div className="overlay">
+          <div
+            className="overlay"
+            onClick={() => props.handleFavouritesClick(movie)}
+          >
             <FavouriteComponent />
           </div>
         </div>
