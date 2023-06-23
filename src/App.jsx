@@ -1,24 +1,36 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import MovieList from "./Components/MovieList";
+import MovieListHeading from "./Components/MovieListHeading";
+import SearchBox from "./Components/SearchBox";
 
 function App() {
   const [movies, setMovies] = useState([]);
+  const [seachValue, setSearchValue] = useState("");
 
-  const getMovieRequest = async () => {
-    const url = "http://www.omdbapi.com/?s=avengers&apikey=2d6f441d";
+  const getMovieRequest = async (seachValue) => {
+    const url = `http://www.omdbapi.com/?s=${seachValue}&apikey=2d6f441d`;
     const response = await fetch(url);
     const responseJson = await response.json();
-    setMovies(responseJson.Search);
+
+    if (responseJson.Search) {
+      setMovies(responseJson.Search);
+    }
   };
 
   useEffect(() => {
-    getMovieRequest();
-  }, []);
+    getMovieRequest(seachValue);
+  }, [seachValue]);
 
   return (
     <div>
-      <MovieList movies={movies} />
+      <div className="header">
+        <MovieListHeading heading="Movies" />
+        <SearchBox seachValue={seachValue} setSearchValue={setSearchValue} />
+      </div>
+      <div>
+        <MovieList movies={movies} />
+      </div>
     </div>
   );
 }
