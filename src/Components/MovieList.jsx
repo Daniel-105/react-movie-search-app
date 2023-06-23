@@ -8,6 +8,7 @@ const MovieList = (props) => {
         <div
           key={movie.imdbID}
           style={{ flex: "0 0 auto", marginRight: "16px" }}
+          className="image-container"
         >
           <Card
             sx={{ height: "100%", display: "flex", flexDirection: "column" }}
@@ -20,6 +21,7 @@ const MovieList = (props) => {
               alt="movie image"
             />
           </Card>
+          <div className="overlay">Favourites</div>
         </div>
       ))}
     </div>
