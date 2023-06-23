@@ -3,7 +3,7 @@ import { Grid, Card, CardContent, CardMedia, Typography } from "@mui/material";
 
 const MovieList = (props) => {
   return (
-    <div style={{ display: "flex", overflowX: "auto" }}>
+    <div style={{ display: "flex" }}>
       {props.movies.map((movie) => (
         <div
           key={movie.imdbID}
