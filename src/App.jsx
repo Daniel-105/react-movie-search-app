@@ -4,6 +4,7 @@ import MovieList from "./Components/MovieList";
 import MovieListHeading from "./Components/MovieListHeading";
 import SearchBox from "./Components/SearchBox";
 import AddFavourites from "./Components/AddFavourites";
+import RemoveFavourites from "./Components/RemoveFavourites";
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -34,6 +35,14 @@ function App() {
     setFavourites(newFavouriteList);
   };
 
+  const removeFavouriteMovie = (movie) => {
+    const newFavouriteList = favourites.filter(
+      (favourite) => favourite.imdbID !== movie.imdbID
+    );
+
+    setFavourites(newFavouriteList);
+  };
+
   return (
     <div>
       <div className="header">
@@ -53,8 +62,8 @@ function App() {
       <div>
         <MovieList
           movies={favourites}
-          handleFavouritesClick={addFavouriteMovie}
-          favouriteComponent={AddFavourites}
+          handleFavouritesClick={removeFavouriteMovie}
+          favouriteComponent={RemoveFavourites}
         />
       </div>
     </div>
