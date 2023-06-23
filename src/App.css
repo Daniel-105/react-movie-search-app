@@ -34,3 +34,9 @@ body {
 .image-container:hover .overlay {
   opacity: 1;
 }
+
+.favourite-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}

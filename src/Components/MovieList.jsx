@@ -2,6 +2,7 @@ import React from "react";
 import { Grid, Card, CardContent, CardMedia, Typography } from "@mui/material";
 
 const MovieList = (props) => {
+  const FavouriteComponent = props.favouriteComponent;
   return (
     <div style={{ display: "flex" }}>
       {props.movies.map((movie) => (
@@ -21,7 +22,9 @@ const MovieList = (props) => {
               alt="movie image"
             />
           </Card>
-          <div className="overlay">Favourites</div>
+          <div className="overlay">
+            <FavouriteComponent />
+          </div>
         </div>
       ))}
     </div>
