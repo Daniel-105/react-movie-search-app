@@ -29,6 +29,7 @@ function App() {
     getMovieRequest(seachValue);
   }, [seachValue]);
 
+  // react hook to retrieve the favourites from the localStorage
   useEffect(() => {
     const movieFavourites = JSON.parse(
       localStorage.getItem("react-movie-app-favourites")
@@ -36,6 +37,7 @@ function App() {
     setFavourites(movieFavourites || []);
   }, []);
 
+  // Funciton to save the movie in local storage
   const saveToLocalStorage = (items) => {
     localStorage.setItem("react-movie-app-favourites", JSON.stringify(items));
   };
@@ -47,6 +49,7 @@ function App() {
     saveToLocalStorage(newFavouriteList);
   };
 
+  // Function that removes the movie from the favourites
   const removeFavouriteMovie = (movie) => {
     const newFavouriteList = favourites.filter(
       (favourite) => favourite.imdbID !== movie.imdbID
