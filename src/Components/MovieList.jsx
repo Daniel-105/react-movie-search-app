@@ -42,7 +42,10 @@ const MovieList = (props) => {
           </Card>
           <div
             className="overlay"
-            onClick={() => props.handleFavouritesClick(movie)}
+            onClick={(event) => {
+              event.stopPropagation();
+              props.handleFavouritesClick(movie);
+            }}
           >
             <FavouriteComponent />
           </div>
