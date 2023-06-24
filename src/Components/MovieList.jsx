@@ -1,5 +1,13 @@
-import React, { useState } from "react";
-import { Card, CardMedia, Modal, Box, Typography } from "@mui/material";
+import React, { useState, useCallback } from "react";
+import {
+  Card,
+  CardMedia,
+  Modal,
+  Box,
+  Typography,
+  FormControlLabel,
+  Checkbox,
+} from "@mui/material";
 
 const MovieList = (props) => {
   const FavouriteComponent = props.favouriteComponent;
@@ -7,12 +15,21 @@ const MovieList = (props) => {
   // State variables for modal
   const [showModal, setShowModal] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const [isMovieSeen, setIsMovieSeen] = useState(false);
 
   const handleOverlayClick = async (movie) => {
     const url = `http://www.omdbapi.com/?i=${movie.imdbID}&plot=full&apikey=2d6f441d`;
     const response = await fetch(url);
     const data = await response.json();
     setSelectedMovie(data);
+
+    // Check if the movie is already seen in the props.movies array
+    const movieSeen =
+      props.movies.find((m) => m.imdbID === movie.imdbID)?.seen ||
+      movie.seen ||
+      false;
+    setIsMovieSeen(movieSeen);
+
     setShowModal(true);
   };
 
@@ -20,8 +37,26 @@ const MovieList = (props) => {
     setShowModal(false);
   };
 
+  const handleSeenChange = (event) => {
+    const updatedMovies = props.movies.map((m) => {
+      if (m.imdbID === selectedMovie.imdbID) {
+        return { ...m, seen: event.target.checked };
+      }
+      return m;
+    });
+
+    setIsMovieSeen(event.target.checked);
+    props.setMovies(updatedMovies);
+  };
+
+  const memoizedHandleSeenChange = useCallback(handleSeenChange, [
+    props.movies,
+    selectedMovie,
+  ]);
+
   return (
     <div style={{ display: "flex" }}>
+      {/* Movie cards */}
       {props.movies.map((movie) => (
         <div
           key={movie.imdbID}
@@ -29,6 +64,7 @@ const MovieList = (props) => {
           className="image-container"
           onClick={() => handleOverlayClick(movie)}
         >
+          {/* Movie card */}
           <Card
             sx={{ height: "100%", display: "flex", flexDirection: "column" }}
           >
@@ -40,6 +76,8 @@ const MovieList = (props) => {
               alt="movie image"
             />
           </Card>
+
+          {/* Favourite overlay */}
           <div
             className="overlay"
             onClick={(event) => {
@@ -99,6 +137,21 @@ const MovieList = (props) => {
                 <Typography variant="body1" sx={{ fontSize: "1.5em" }}>
                   Plot: {selectedMovie.Plot}
                 </Typography>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={isMovieSeen}
+                      onChange={handleSeenChange} // Update the isMovieSeen state
+                      name="seen"
+                      sx={{ color: "white" }}
+                    />
+                  }
+                  label={
+                    <Typography variant="body1" sx={{ fontSize: "1.5em" }}>
+                      Seen
+                    </Typography>
+                  }
+                />
                 {/* Add more movie details here */}
               </div>
             </>

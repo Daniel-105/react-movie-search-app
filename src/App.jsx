@@ -60,7 +60,8 @@ function App() {
       <div>
         <MovieList
           movies={movies}
-          handleFavouritesClick={addFavouriteMovie}
+          setMovies={setMovies} // Add the setMovies prop here
+          handleFavouritesClick={addFavouriteMovie} // Update prop name here
           favouriteComponent={AddFavourites}
         />
       </div>
@@ -70,7 +71,8 @@ function App() {
       <div>
         <MovieList
           movies={favourites}
-          handleFavouritesClick={removeFavouriteMovie}
+          setMovies={setMovies} // Add the setMovies prop here
+          handleFavouritesClick={removeFavouriteMovie} // Update prop name here
           favouriteComponent={RemoveFavourites}
         />
       </div>
