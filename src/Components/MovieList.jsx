@@ -17,13 +17,15 @@ const MovieList = (props) => {
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [isMovieSeen, setIsMovieSeen] = useState(false);
 
+  // Function to make the modal visible
   const handleOverlayClick = async (movie) => {
+    // Making the request to the api to have the plot information
     const url = `http://www.omdbapi.com/?i=${movie.imdbID}&plot=full&apikey=2d6f441d`;
     const response = await fetch(url);
     const data = await response.json();
     setSelectedMovie(data);
 
-    // Check if the movie is already seen in the props.movies array
+    // Check if the movie has already a "seen" property. If it doesn't, assign "false" to "seen"
     const movieSeen =
       props.movies.find((m) => m.imdbID === movie.imdbID)?.seen ||
       movie.seen ||
@@ -33,19 +35,26 @@ const MovieList = (props) => {
     setShowModal(true);
   };
 
+  // Function to make the modal disappear when the user clicks out of the modal
   const handleCloseModal = () => {
     setShowModal(false);
   };
 
+  // Function that accepts and event (the checkbox one)
   const handleSeenChange = (event) => {
+    // Iterats through the movies passed through and checks if the imdb from the movie passed in is the same as the selected one
     const updatedMovies = props.movies.map((m) => {
       if (m.imdbID === selectedMovie.imdbID) {
+        // creates a copy of the m (movie) and sets the seen property to true (event.target.checked)
         return { ...m, seen: event.target.checked };
       }
       return m;
     });
 
+    // update the current state of the checkbox
     setIsMovieSeen(event.target.checked);
+
+    // updates the state of "movies"
     props.setMovies(updatedMovies);
   };
 
@@ -81,8 +90,8 @@ const MovieList = (props) => {
           <div
             className="overlay"
             onClick={(event) => {
-              event.stopPropagation();
-              props.handleFavouritesClick(movie);
+              event.stopPropagation(); // Prevents the showModal to become true
+              props.handleFavouritesClick(movie); // add
             }}
           >
             <FavouriteComponent />
