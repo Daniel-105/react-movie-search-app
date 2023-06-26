@@ -75,7 +75,6 @@ const MovieModal = ({
               </Typography>
             }
           />
-          {/* Add more movie details here */}
         </div>
       </Box>
     </Modal>

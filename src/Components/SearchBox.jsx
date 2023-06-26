@@ -1,5 +1,5 @@
 import React from "react";
-import { TextField, createTheme, ThemeProvider, Portal } from "@mui/material";
+import { TextField, createTheme, ThemeProvider } from "@mui/material";
 
 const theme = createTheme({
   components: {
@@ -24,19 +24,19 @@ const theme = createTheme({
   },
 });
 
-const SearchBox = (props) => {
+const SearchBox = ({ label, value, onChange }) => {
   return (
     <ThemeProvider theme={theme}>
       <div>
         <TextField
           variant="outlined"
-          label="Find your movie..."
+          label={label}
           color="primary"
           InputLabelProps={{
             style: { color: "white" },
           }}
-          value={props.value}
-          onChange={(event) => props.setSearchValue(event.target.value)}
+          value={value}
+          onChange={onChange}
         />
       </div>
     </ThemeProvider>

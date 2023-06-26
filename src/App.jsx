@@ -9,21 +9,40 @@ import RemoveFavourites from "./Components/RemoveFavourites";
 function App() {
   const [movies, setMovies] = useState([]);
   const [favourites, setFavourites] = useState([]);
-  const [searchValue, setSearchValue] = useState("");
+  const [searchTitle, setSearchTitle] = useState("");
+  const [searchYear, setSearchYear] = useState("");
+  const [searchImdbID, setSearchImdbID] = useState("");
 
-  const getMovieRequest = async (searchValue) => {
-    const url = `http://www.omdbapi.com/?s=${searchValue}&apikey=2d6f441d`;
+  const getMovieRequest = async () => {
+    let url = "http://www.omdbapi.com/?apikey=2d6f441d";
+
+    if (searchTitle) {
+      url += `&s=${searchTitle}`;
+    }
+
+    if (searchYear) {
+      url += `&y=${searchYear}`;
+    }
+
+    if (searchImdbID) {
+      url = `http://www.omdbapi.com/?apikey=2d6f441d&i=${searchImdbID}`;
+    }
+
     const response = await fetch(url);
     const responseJson = await response.json();
 
     if (responseJson.Search) {
       setMovies(responseJson.Search);
+    } else {
+      // For IMDb ID search, the API directly returns the movie details
+      // So we set the single movie as an array to display in MovieList component
+      setMovies(responseJson.Error ? [] : [responseJson]);
     }
   };
 
   useEffect(() => {
-    getMovieRequest(searchValue);
-  }, [searchValue]);
+    getMovieRequest();
+  }, [searchTitle, searchYear, searchImdbID]);
 
   useEffect(() => {
     const movieFavourites = JSON.parse(
@@ -55,13 +74,31 @@ function App() {
     <div>
       <div className="header">
         <MovieListHeading heading="Movies" />
-        <SearchBox searchValue={searchValue} setSearchValue={setSearchValue} />
+        <div className="search-group">
+          <SearchBox
+            label="Title"
+            value={searchTitle}
+            onChange={(event) => setSearchTitle(event.target.value)}
+          />
+          <SearchBox
+            label="Year"
+            value={searchYear}
+            onChange={(event) => setSearchYear(event.target.value)}
+          />
+        </div>
+        <div className="search-group">
+          <SearchBox
+            label="IMDb ID"
+            value={searchImdbID}
+            onChange={(event) => setSearchImdbID(event.target.value)}
+          />
+        </div>
       </div>
       <div>
         <MovieList
           movies={movies}
-          setMovies={setMovies} // Add the setMovies prop here
-          handleFavouritesClick={addFavouriteMovie} // Update prop name here
+          setMovies={setMovies}
+          handleFavouritesClick={addFavouriteMovie}
           favouriteComponent={AddFavourites}
         />
       </div>
@@ -71,8 +108,8 @@ function App() {
       <div>
         <MovieList
           movies={favourites}
-          setMovies={setMovies} // Add the setMovies prop here
-          handleFavouritesClick={removeFavouriteMovie} // Update prop name here
+          setMovies={setMovies}
+          handleFavouritesClick={removeFavouriteMovie}
           favouriteComponent={RemoveFavourites}
         />
       </div>
