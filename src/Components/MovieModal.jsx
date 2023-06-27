@@ -8,6 +8,21 @@ import {
   CardMedia,
 } from "@mui/material";
 
+const modalContentStyles = {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "70%",
+  height: "70%",
+  backgroundColor: "black",
+  color: "white",
+  padding: "16px",
+};
+
 const MovieModal = ({
   movie,
   showModal,
@@ -26,22 +41,7 @@ const MovieModal = ({
       aria-labelledby="modal-title"
       aria-describedby="modal-description"
     >
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          width: "70%",
-          height: "70%",
-          backgroundColor: "black",
-          color: "white",
-          padding: "16px",
-        }}
-      >
+      <Box sx={modalContentStyles}>
         <CardMedia
           component="img"
           height="100%"
