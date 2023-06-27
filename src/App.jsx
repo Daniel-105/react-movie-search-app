@@ -70,14 +70,22 @@ function App() {
 
   // function to add the movie to the favourites
   const addFavouriteMovie = (movie) => {
-    // create a copy of the current favourites and add the movie that was passed in
-    const newFavouriteList = [...favourites, movie];
+    // Check if the movie is already in favorites
+    const isMovieInFavorites = favourites.find(
+      (m) => m.imdbID === movie.imdbID
+    );
 
-    // we set the favourites variable to that copy
-    setFavourites(newFavouriteList);
+    // If the movie is not already in favorites, add it
+    if (!isMovieInFavorites) {
+      // Create a copy of the current favorites and add the movie that was passed in
+      const newFavouriteList = [...favourites, movie];
 
-    // and we save it in the local storage
-    saveToLocalStorage(newFavouriteList);
+      // Set the favorites variable to the copy
+      setFavourites(newFavouriteList);
+
+      // Save it in the local storage
+      saveToLocalStorage(newFavouriteList);
+    }
   };
 
   // function to remove the movie to the favourite section
