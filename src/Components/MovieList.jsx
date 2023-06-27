@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { Card, CardMedia, FormControlLabel, Checkbox } from "@mui/material";
 import MovieModal from "./MovieModal";
 
@@ -18,9 +18,9 @@ const MovieList = (props) => {
     const data = await response.json();
     setSelectedMovie(data);
 
-    // Check if the movie has already a "seen" property. If it doesn't, assign "false" to "seen"
+    // Check if the movie has already a "seen" property. If it doesn't, assign "false" to "movieSeen"
     const movieSeen =
-      props.movies.find((m) => m.imdbID === movie.imdbID)?.seen ||
+      props.movies.find((m) => m.imdbID === m.imdbID)?.seen ||
       movie.seen ||
       false;
     setIsMovieSeen(movieSeen);
@@ -36,21 +36,41 @@ const MovieList = (props) => {
   // Function to handle the change of the "seen" checkbox
   const handleSeenChange = useCallback(
     (event) => {
-      // Update the "seen" property of the selected movie in the movies list
+      const isChecked = event.target.checked;
+
+      setIsMovieSeen(isChecked);
+
+      // Update the "seen" property of the selected movie in the movies list without modifying the array
       const updatedMovies = props.movies.map((m) => {
-        if (m.imdbID === selectedMovie.imdbID) {
-          return { ...m, seen: event.target.checked };
+        if (m.imdbID === selectedMovie?.imdbID) {
+          return { ...m, seen: isChecked };
         }
         return m;
       });
 
-      setIsMovieSeen(event.target.checked);
+      // Update localStorage with the new checkbox state for the selected movie
+      if (selectedMovie?.imdbID) {
+        const movieSeenData =
+          JSON.parse(localStorage.getItem("movieSeen")) || {};
+        movieSeenData[selectedMovie.imdbID] = isChecked;
+        localStorage.setItem("movieSeen", JSON.stringify(movieSeenData));
+      }
 
-      // Update the movies list state
-      props.setMovies(updatedMovies);
+      console.log(updatedMovies);
     },
     [props.movies, selectedMovie]
   );
+
+  // Retrieve checkbox state from localStorage during component initialization
+  useEffect(() => {
+    if (selectedMovie && selectedMovie.imdbID) {
+      const movieSeenData = JSON.parse(localStorage.getItem("movieSeen"));
+      const movieSeen = movieSeenData && movieSeenData[selectedMovie.imdbID];
+      if (movieSeen !== undefined) {
+        setIsMovieSeen(movieSeen);
+      }
+    }
+  }, [selectedMovie]);
 
   return (
     <div style={{ display: "flex" }}>
