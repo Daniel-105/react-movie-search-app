@@ -42,40 +42,40 @@ const MovieModal = ({
       aria-describedby="modal-description"
     >
       <Box sx={modalContentStyles}>
-        <CardMedia
-          component="img"
-          height="100%"
-          width="100%"
-          style={{ objectFit: "contain", marginRight: "16px" }}
-          image={movie.Poster}
-          alt="movie image"
-        />
-        <div>
-          <Typography variant="h6" component="h2" sx={{ fontSize: "3em" }}>
-            {movie.Title}
-          </Typography>
-          <Typography variant="subtitle1" sx={{ fontSize: "2em" }}>
-            Year: {movie.Year}
-          </Typography>
-          <Typography variant="body1" sx={{ fontSize: "1.5em" }}>
-            Plot: {movie.Plot}
-          </Typography>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={isMovieSeen}
-                onChange={handleSeenChange}
-                name="seen"
-                sx={{ color: "white" }}
-              />
-            }
-            label={
-              <Typography variant="body1" sx={{ fontSize: "1.5em" }}>
-                Seen
-              </Typography>
-            }
+        <Box sx={{ display: "flex", alignItems: "center", gap: "16px" }}>
+          <CardMedia
+            component="img"
+            sx={{ flex: "0 0 30%", maxHeight: 800, objectFit: "contain" }}
+            image={movie.Poster}
+            alt="movie image"
           />
-        </div>
+          <div sx={{ flex: "1" }}>
+            <Typography variant="h6" component="h2" sx={{ fontSize: "3em" }}>
+              {movie.Title}
+            </Typography>
+            <Typography variant="subtitle1" sx={{ fontSize: "2em" }}>
+              Year: {movie.Year}
+            </Typography>
+            <Typography variant="body1" sx={{ fontSize: "1.5em" }}>
+              Plot: {movie.Plot}
+            </Typography>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={isMovieSeen}
+                  onChange={handleSeenChange}
+                  name="seen"
+                  sx={{ color: "white" }}
+                />
+              }
+              label={
+                <Typography variant="body1" sx={{ fontSize: "1.5em" }}>
+                  Seen
+                </Typography>
+              }
+            />
+          </div>
+        </Box>
       </Box>
     </Modal>
   );
