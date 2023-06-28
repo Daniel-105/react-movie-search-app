@@ -1,6 +1,25 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { Card, CardMedia, FormControlLabel, Checkbox } from "@mui/material";
+import {
+  Card,
+  CardMedia,
+  FormControlLabel,
+  Checkbox,
+  Box,
+} from "@mui/material";
 import MovieModal from "./MovieModal";
+import { styled } from "@mui/system";
+
+const ImageContainer = styled("div")(({ theme }) => ({
+  position: "relative",
+  transition: "transform 0.2s",
+  "&:hover": {
+    transform: "scale(1.1)",
+    cursor: "pointer",
+    "& .overlay": {
+      opacity: 1,
+    },
+  },
+}));
 
 const MovieList = (props) => {
   const FavouriteComponent = props.favouriteComponent;
@@ -76,10 +95,9 @@ const MovieList = (props) => {
     <div style={{ display: "flex" }}>
       {/* Render movie cards */}
       {props.movies.map((movie) => (
-        <div
+        <ImageContainer
           key={movie.imdbID}
           style={{ flex: "0 0 auto", marginRight: "16px" }}
-          className="image-container"
           onClick={() => handleOverlayClick(movie)}
         >
           {/* Render movie card */}
@@ -96,16 +114,30 @@ const MovieList = (props) => {
           </Card>
 
           {/* Render favourite overlay */}
-          <div
+          <Box
             className="overlay"
             onClick={(event) => {
-              event.stopPropagation(); // Prevents the showModal from becoming true
+              event.stopPropagation();
               props.handleFavouritesClick(movie);
+            }}
+            sx={{
+              position: "absolute",
+              backgroundColor: "rgba(0, 0, 0, 0.8)",
+              width: "100%",
+              transition: "0.5s ease",
+              opacity: 0,
+              bottom: 0,
+              fontSize: "1.4em",
+              textAlign: "center",
+              height: "10%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-evenly",
             }}
           >
             <FavouriteComponent />
-          </div>
-        </div>
+          </Box>
+        </ImageContainer>
       ))}
 
       {/* Render the MovieModal component */}

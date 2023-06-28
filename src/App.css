@@ -11,7 +11,7 @@ body {
   margin: 20px;
 } */
 
-.image-container {
+/* .image-container {
   position: relative;
   transition: transform 0.2s;
 }
@@ -38,7 +38,7 @@ body {
 
 .image-container:hover .overlay {
   opacity: 1;
-}
+} */
 
 /* .favourite-wrapper {
   display: flex;
