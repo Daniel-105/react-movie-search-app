@@ -40,11 +40,11 @@ body {
   opacity: 1;
 }
 
-.favourite-wrapper {
+/* .favourite-wrapper {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-}
+} */
 
 /* .search-group {
   display: flex;
