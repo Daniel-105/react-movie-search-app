@@ -1,9 +1,5 @@
 # Movie Search App
 
-## Test the application live
-
-https://daniel-105.github.io/react-movie-search-app/
-
 ## Requirements
 
 ---
