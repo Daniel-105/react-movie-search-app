@@ -1,5 +1,5 @@
 import React from "react";
-import { TextField, createTheme, ThemeProvider } from "@mui/material";
+import { TextField, createTheme, ThemeProvider, Box } from "@mui/material";
 
 const theme = createTheme({
   components: {
@@ -27,7 +27,7 @@ const theme = createTheme({
 const SearchBox = ({ label, value, onChange }) => {
   return (
     <ThemeProvider theme={theme}>
-      <div>
+      <Box sx={{ display: "flex", alignItems: "center", marginRight: "10px" }}>
         <TextField
           variant="outlined"
           label={label}
@@ -38,7 +38,7 @@ const SearchBox = ({ label, value, onChange }) => {
           value={value}
           onChange={onChange}
         />
-      </div>
+      </Box>
     </ThemeProvider>
   );
 };

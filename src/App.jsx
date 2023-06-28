@@ -116,25 +116,37 @@ function App() {
         }}
       >
         <MovieListHeading heading="Movies" />
-        <div className="search-group">
-          <SearchBox
-            label="Title"
-            value={searchTitle}
-            onChange={(event) => setSearchTitle(event.target.value)}
-          />
-          <SearchBox
-            label="Year"
-            value={searchYear}
-            onChange={(event) => setSearchYear(event.target.value)}
-          />
-        </div>
-        <div className="search-group">
-          <SearchBox
-            label="IMDb ID"
-            value={searchImdbID}
-            onChange={(event) => setSearchImdbID(event.target.value)}
-          />
-        </div>
+        <Box sx={{ display: "flex" }}>
+          <Box
+            sx={{ display: "flex", alignItems: "center", marginRight: "10px" }}
+          >
+            <SearchBox
+              label="Title"
+              value={searchTitle}
+              onChange={(event) => setSearchTitle(event.target.value)}
+            />
+          </Box>
+          <Box
+            sx={{ display: "flex", alignItems: "center", marginRight: "10px" }}
+          >
+            <SearchBox
+              label="Year"
+              value={searchYear}
+              onChange={(event) => setSearchYear(event.target.value)}
+            />
+          </Box>
+        </Box>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Box
+            sx={{ display: "flex", alignItems: "center", marginRight: "10px" }}
+          >
+            <SearchBox
+              label="IMDb ID"
+              value={searchImdbID}
+              onChange={(event) => setSearchImdbID(event.target.value)}
+            />
+          </Box>
+        </Box>
       </Box>
       <div>
         <MovieList

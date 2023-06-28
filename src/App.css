@@ -46,12 +46,11 @@ body {
   justify-content: space-evenly;
 }
 
-/* Add the new styles for search groups */
-.search-group {
+/* .search-group {
   display: flex;
   align-items: center;
 }
 
 .search-group:not(:last-child) {
   margin-right: 10px;
-}
+} */
