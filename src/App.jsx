@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Box } from "@mui/material";
 import "./App.css";
 import MovieList from "./Components/MovieList";
 import MovieListHeading from "./Components/MovieListHeading";
@@ -106,7 +107,14 @@ function App() {
 
   return (
     <div>
-      <div className="header">
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          margin: "20px",
+        }}
+      >
         <MovieListHeading heading="Movies" />
         <div className="search-group">
           <SearchBox
@@ -127,7 +135,7 @@ function App() {
             onChange={(event) => setSearchImdbID(event.target.value)}
           />
         </div>
-      </div>
+      </Box>
       <div>
         <MovieList
           movies={movies}
@@ -136,9 +144,16 @@ function App() {
           favouriteComponent={AddFavourites}
         />
       </div>
-      <div className="header">
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          margin: "20px",
+        }}
+      >
         <MovieListHeading heading="Favourites" />
-      </div>
+      </Box>
       <div>
         <MovieList
           movies={favourites}
