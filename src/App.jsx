@@ -17,7 +17,7 @@ function App() {
   // making the request to the API
   const getMovieRequest = async () => {
     //initial url
-    let url = "http://www.omdbapi.com/?apikey=2d6f441d";
+    let url = "https://www.omdbapi.com/?apikey=2d6f441d";
 
     // search by title
     if (searchTitle) {
@@ -31,7 +31,7 @@ function App() {
 
     // search only by imdbID
     if (searchImdbID) {
-      url = `http://www.omdbapi.com/?apikey=2d6f441d&i=${searchImdbID}`;
+      url = `https://www.omdbapi.com/?apikey=2d6f441d&i=${searchImdbID}`;
     }
 
     const response = await fetch(url);

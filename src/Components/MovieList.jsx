@@ -32,7 +32,7 @@ const MovieList = (props) => {
   // Function to handle the click on the movie overlay and show the modal
   const handleOverlayClick = async (movie) => {
     // Fetch additional movie details from the API
-    const url = `http://www.omdbapi.com/?i=${movie.imdbID}&plot=full&apikey=2d6f441d`;
+    const url = `https://www.omdbapi.com/?i=${movie.imdbID}&plot=full&apikey=2d6f441d`;
     const response = await fetch(url);
     const data = await response.json();
     setSelectedMovie(data);
